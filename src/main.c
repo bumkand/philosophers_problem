@@ -1,39 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   philo.h                                            :+:      :+:    :+:   */
+/*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jakand <jakand@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/26 18:56:56 by jakand            #+#    #+#             */
-/*   Updated: 2025/08/27 22:28:09 by jakand           ###   ########.fr       */
+/*   Created: 2025/08/27 18:30:34 by jakand            #+#    #+#             */
+/*   Updated: 2025/08/27 22:16:34 by jakand           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PHILO_H
-# define PHILO_H
+#include "../includes/philo.h"
 
-#include <stdio.h>
-#include <unistd.h>
-#include <pthread.h>
-
-typedef struct s_philo
+int	main(int arc, char *arv[])
 {
-	int			id;
-	int			left_fork;
-	int			right_fork;
-	pthread_t	thread;
-}	t_philo;
+	t_data	data;
+	int		i;
 
-typedef struct s_data
-{
-	int				philo_num;
-	pthread_mutex_t	*forks;
-	t_philo			*philos;
-}	t_data;
+	i = 0;
+	if (arc < 2 || arc > 6)
+		return (printf("Wrong amount of arguments\n"), 0);
 
-char	*init_data(t_data *data, int arc, char *arv[]);
-
-int	ft_atoi(const char *nptr);
-
-#endif
+	if (init_data(&data, arc, arv))
+	{
+		printf("Something went wrong\n");
+		return (0);
+	}
+	while (i < arc)
+	{
+		printf("%s ", arv[i]);
+		i++;
+	}
+	return (0);
+}

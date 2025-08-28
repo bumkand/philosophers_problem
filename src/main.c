@@ -6,7 +6,7 @@
 /*   By: jakand <jakand@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/27 18:30:34 by jakand            #+#    #+#             */
-/*   Updated: 2025/08/27 22:16:34 by jakand           ###   ########.fr       */
+/*   Updated: 2025/08/28 16:30:33 by jakand           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,9 @@
 int	main(int arc, char *arv[])
 {
 	t_data	data;
-	int		i;
+	//int		i;
 
-	i = 0;
+	//i = 0;
 	if (arc < 2 || arc > 6)
 		return (printf("Wrong amount of arguments\n"), 0);
 
@@ -26,10 +26,11 @@ int	main(int arc, char *arv[])
 		printf("Something went wrong\n");
 		return (0);
 	}
-	while (i < arc)
-	{
-		printf("%s ", arv[i]);
-		i++;
-	}
+
+	if (data.forks)
+		free(data.forks);
+	if (data.philos)
+		free(data.philos);
+
 	return (0);
 }

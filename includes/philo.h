@@ -6,7 +6,7 @@
 /*   By: jakand <jakand@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/26 18:56:56 by jakand            #+#    #+#             */
-/*   Updated: 2025/08/27 22:28:09 by jakand           ###   ########.fr       */
+/*   Updated: 2025/08/28 21:57:50 by jakand           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,24 +15,36 @@
 
 #include <stdio.h>
 #include <unistd.h>
+#include <stdlib.h>
+#include <sys/time.h>
 #include <pthread.h>
 
 typedef struct s_philo
 {
-	int			id;
-	int			left_fork;
-	int			right_fork;
-	pthread_t	thread;
+	int				id;
+	int				left_fork;
+	int				right_fork;
+	pthread_t		thread;
+	struct s_data	*data;
 }	t_philo;
 
 typedef struct s_data
 {
 	int				philo_num;
+	int				time_to_die;
+	int				time_to_eat;
+	int				time_to_sleep;
+	int				num_of_eats;
+	long			start_time;
 	pthread_mutex_t	*forks;
 	t_philo			*philos;
 }	t_data;
 
-char	*init_data(t_data *data, int arc, char *arv[]);
+int	init_data(t_data *data, int arc, char *arv[]);
+
+int	philo_threads(t_data *data);
+
+long	time_in_ms(void);
 
 int	ft_atoi(const char *nptr);
 

@@ -6,13 +6,13 @@
 /*   By: jakand <jakand@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/27 21:40:57 by jakand            #+#    #+#             */
-/*   Updated: 2025/08/28 21:58:05 by jakand           ###   ########.fr       */
+/*   Updated: 2025/08/29 17:02:05 by jakand           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
 
-long	time_in_ms(void)
+long long	time_in_ms(void)
 {
 	struct timeval	tv;
 
@@ -24,7 +24,7 @@ int	init_data(t_data *data, int arc, char *arv[])
 {
 	int	i;
 
-	data->start_time = time_in_ms();
+	//data->start_time = time_in_ms();
 	data->philo_num = ft_atoi(arv[1]);
 	data->time_to_die = ft_atoi(arv[2]);
 	data->time_to_eat = ft_atoi(arv[3]);

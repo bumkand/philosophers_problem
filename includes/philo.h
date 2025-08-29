@@ -6,7 +6,7 @@
 /*   By: jakand <jakand@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/26 18:56:56 by jakand            #+#    #+#             */
-/*   Updated: 2025/08/28 21:57:50 by jakand           ###   ########.fr       */
+/*   Updated: 2025/08/29 16:57:50 by jakand           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ typedef struct s_data
 	int				time_to_eat;
 	int				time_to_sleep;
 	int				num_of_eats;
-	long			start_time;
+	long long		start_time;
 	pthread_mutex_t	*forks;
 	t_philo			*philos;
 }	t_data;
@@ -44,7 +44,7 @@ int	init_data(t_data *data, int arc, char *arv[]);
 
 int	philo_threads(t_data *data);
 
-long	time_in_ms(void);
+long long	time_in_ms(void);
 
 int	ft_atoi(const char *nptr);
 

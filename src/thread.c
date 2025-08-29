@@ -6,11 +6,43 @@
 /*   By: jakand <jakand@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/28 17:09:14 by jakand            #+#    #+#             */
-/*   Updated: 2025/08/29 17:08:06 by jakand           ###   ########.fr       */
+/*   Updated: 2025/08/29 23:03:31 by jakand           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
+
+int	eating_action(t_data *data, t_philo *philo)
+{
+	pthread_mutex_lock(&data->forks[philo->left_fork]);
+	if (data->philo_num == 1)
+		{
+			printf("%lld %i has taken a fork\n", time_in_ms() - data->start_time, philo->id);
+			return (printf("Philo is alone and will dye\n"), 1);
+		}
+	pthread_mutex_lock(&data->forks[philo->right_fork]);
+	printf("%lld %i has taken a fork\n", time_in_ms() - data->start_time, philo->id);
+	printf("%lld %i has taken a fork\n", time_in_ms() - data->start_time, philo->id);
+	printf("%lld %i is eating\n", time_in_ms() - data->start_time, philo->id);
+	
+	philo->meals_ate++;
+	printf("Philosopher %i eats %i meals\n", philo->id, philo->meals_ate);
+	
+	if (philo->meals_ate == data->num_of_eats)
+	{
+		data->everyone_ate++;
+		printf("everyone ate %i\n", data->everyone_ate);
+		if (data->everyone_ate == data->philo_num)
+		{
+			//data->stop = 1;
+			return (1);
+		}
+	}
+	usleep(data->time_to_eat * 1000);
+	pthread_mutex_unlock(&data->forks[philo->left_fork]);
+	pthread_mutex_unlock(&data->forks[philo->right_fork]);
+	return (0);
+}
 
 void	*make_routine(void *arg)
 {
@@ -19,20 +51,17 @@ void	*make_routine(void *arg)
 
 	philo = (t_philo *) arg;
 	data = philo->data;
-	while (1)
+	while (!data->stop)
 	{
-
-		pthread_mutex_lock(&data->forks[philo->left_fork]);
-		pthread_mutex_lock(&data->forks[philo->right_fork]);
-		printf("%lld %i has taken a fork\n", time_in_ms() - data->start_time, philo->id);
-		printf("%lld %i has taken a fork\n", time_in_ms() - data->start_time, philo->id);
-		printf("%lld %i is eating\n", time_in_ms() - data->start_time, philo->id);
-		usleep(data->time_to_eat * 1000);
-		pthread_mutex_unlock(&data->forks[philo->left_fork]);
-		pthread_mutex_unlock(&data->forks[philo->right_fork]);
+		if (eating_action(data, philo))
+		{
+			data->stop = 1;
+			printf("Everyone is FULL\n");
+			return (NULL);
+		}
 		
-		//printf("%lld %i is sleeping\n", time_in_ms() - data->start_time, philo->id);
 		usleep(data->time_to_sleep * 1000);
+		printf("%lld %i is sleeping\n", time_in_ms() - data->start_time, philo->id);
 	}
 	return (NULL);
 }

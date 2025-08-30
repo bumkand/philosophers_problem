@@ -6,7 +6,7 @@
 /*   By: jakand <jakand@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/27 21:40:57 by jakand            #+#    #+#             */
-/*   Updated: 2025/08/29 22:46:57 by jakand           ###   ########.fr       */
+/*   Updated: 2025/08/30 15:14:20 by jakand           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ int	init_data(t_data *data, int arc, char *arv[])
 		data->philos[i].right_fork = (i + 1) % data->philo_num;
 		data->philos[i].data = data;
 		data->philos[i].meals_ate = 0;
+		data->philos[i].last_meal_time = 0;
 		i++;
 	}
 	if (philo_threads(data))

@@ -6,7 +6,7 @@
 /*   By: jakand <jakand@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/27 21:40:57 by jakand            #+#    #+#             */
-/*   Updated: 2025/08/30 15:14:20 by jakand           ###   ########.fr       */
+/*   Updated: 2025/08/31 17:13:28 by jakand           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,11 @@ int	init_data(t_data *data, int arc, char *arv[])
 	data->time_to_sleep = ft_atoi(arv[4]);
 	if (arv[5])
 		data->num_of_eats = ft_atoi(arv[5]);
+	else
+		data->num_of_eats = -1;
 	data->everyone_ate = 0;
 	data->stop = 0;
+	data->start_time = time_in_ms();
 	data->philos = malloc(data->philo_num * sizeof(t_philo));
 	data->forks = malloc(data->philo_num * sizeof(pthread_mutex_t));
 	if (!data->philos || !data->forks)
@@ -45,7 +48,7 @@ int	init_data(t_data *data, int arc, char *arv[])
 		data->philos[i].right_fork = (i + 1) % data->philo_num;
 		data->philos[i].data = data;
 		data->philos[i].meals_ate = 0;
-		data->philos[i].last_meal_time = 0;
+		data->philos[i].last_meal_time = data->start_time;
 		i++;
 	}
 	if (philo_threads(data))

@@ -6,7 +6,7 @@
 /*   By: jakand <jakand@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/26 18:56:56 by jakand            #+#    #+#             */
-/*   Updated: 2025/08/31 16:30:23 by jakand           ###   ########.fr       */
+/*   Updated: 2025/09/01 16:26:53 by jakand           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,10 +32,10 @@ typedef struct s_philo
 
 typedef struct s_data
 {
-	int				philo_num;
-	int				time_to_die;
-	int				time_to_eat;
-	int				time_to_sleep;
+	long long		philo_num;
+	long long		time_to_die;
+	long long		time_to_eat;
+	long long		time_to_sleep;
 	int				num_of_eats;
 	int				everyone_ate;
 	int				stop;

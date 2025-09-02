@@ -6,7 +6,7 @@
 /*   By: jakand <jakand@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/27 18:30:34 by jakand            #+#    #+#             */
-/*   Updated: 2025/08/31 22:11:45 by jakand           ###   ########.fr       */
+/*   Updated: 2025/09/02 16:01:47 by jakand           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,18 @@ int	main(int arc, char *arv[])
 			free(data.forks);
 		if (data.philos)
 			free(data.philos);
-		printf("Something went wrong\n");
-		return (0);
+		return (1);
 	}
-
+	//printf("main ==> %lli %lli %lli %lli\n", data.philo_num, data.time_to_die, data.time_to_eat, data.time_to_sleep);
+	if (philo_threads(&data))
+	{
+		if (data.forks)
+			free(data.forks);
+		if (data.philos)
+			free(data.philos);
+		printf("Something happen\n");
+		return (1);
+	}
 	if (data.forks)
 		free(data.forks);
 	if (data.philos)

@@ -6,7 +6,7 @@
 /*   By: jakand <jakand@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/27 21:40:57 by jakand            #+#    #+#             */
-/*   Updated: 2025/09/01 16:32:16 by jakand           ###   ########.fr       */
+/*   Updated: 2025/09/02 16:01:02 by jakand           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,8 @@ long long	time_in_ms(void)
 	return ((tv.tv_sec * 1000) + (tv.tv_usec / 1000));
 }
 
-int	init_data(t_data *data, int arc, char *arv[])
+int	data_struct(t_data *data, char *arv[])
 {
-	int	i;
-	(void) arc;
-
 	data->philo_num = ft_atoi(arv[1]);
 	data->time_to_die = ft_atoi(arv[2]);
 	data->time_to_eat = ft_atoi(arv[3]);
@@ -40,6 +37,13 @@ int	init_data(t_data *data, int arc, char *arv[])
 	data->forks = malloc(data->philo_num * sizeof(pthread_mutex_t));
 	if (!data->philos || !data->forks)
 		return (1);
+	return (0);
+}
+
+int	philo_struct(t_data *data)
+{
+	int	i;
+
 	i = 0;
 	while (i < data->philo_num)
 	{
@@ -51,12 +55,25 @@ int	init_data(t_data *data, int arc, char *arv[])
 		data->philos[i].last_meal_time = data->start_time;
 		i++;
 	}
-	if (philo_threads(data))
+	return (0);
+}
+
+int	init_data(t_data *data, int arc, char *arv[])
+{
+	(void) arc;
+
+	if (data_struct(data, arv))
 	{
-		printf("Something happen\n");
+		printf("Initialization in data struct went wrong\n");
 		return (1);
 	}
-	//printf("arc = %i\n", arc);
-	//printf("%i\n%i\n%i\n%i\n%i\n", data->philo_num, data->time_to_die, data->time_to_eat, data->time_to_sleep, data->num_of_eats);
+	if (data->philo_num < 1 || data->time_to_die < 1
+		|| data->time_to_eat < 1 || data->time_to_sleep < 1)
+	{
+		printf("Wrong num of philos or amount of time\n");
+		return (1);
+	}
+	//printf("%lli %lli %lli %lli\n", data->philo_num, data->time_to_die, data->time_to_eat, data->time_to_sleep);
+	philo_struct(data);
 	return (0);
 }

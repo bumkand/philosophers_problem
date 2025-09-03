@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jakand <jakand@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jaandras <jaandras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/27 21:40:57 by jakand            #+#    #+#             */
-/*   Updated: 2025/09/02 16:01:02 by jakand           ###   ########.fr       */
+/*   Updated: 2025/09/03 16:52:21 by jaandras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,11 @@ int	init_data(t_data *data, int arc, char *arv[])
 		printf("Wrong num of philos or amount of time\n");
 		return (1);
 	}
+	// if (data->num_of_eats < 1)
+	// {
+	// 	printf("Wrong amount of number of eats\n");
+	// 	return (1);
+	// }
 	//printf("%lli %lli %lli %lli\n", data->philo_num, data->time_to_die, data->time_to_eat, data->time_to_sleep);
 	philo_struct(data);
 	return (0);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   thread.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jakand <jakand@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jaandras <jaandras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/28 17:09:14 by jakand            #+#    #+#             */
-/*   Updated: 2025/09/02 22:15:38 by jakand           ###   ########.fr       */
+/*   Updated: 2025/09/03 18:01:18 by jaandras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,11 +42,11 @@ int	eating_action(t_data *data, t_philo *philo)
 	if (philo->id % 2 == 0)
 	{
 		pthread_mutex_lock(&data->forks[philo->left_fork]);
-		//if (data->philo_num == 1)
-		//	{
-		//		printf("%lld %i has taken a fork\n", time_in_ms() - data->start_time, philo->id);
-		//		return (printf("Philo is alone and will dye\n"), 1);
-		//	}
+		// if (data->philo_num == 1)
+		// 	{
+		// 		printf("%lld %i has taken a fork\n", time_in_ms() - data->start_time, philo->id);
+		// 		return (printf("Philo is alone and will dYe\n"), 1);
+		// 	}
 		pthread_mutex_lock(&data->forks[philo->right_fork]);
 		philo->last_meal_time = time_in_ms();
 		printf("%lld %i has taken a fork\n", time_in_ms() - data->start_time, philo->id);
@@ -105,8 +105,8 @@ void	*make_routine(void *arg)
 	philo = (t_philo *) arg;
 	data = philo->data;
 
-	if (philo->id % 2 == 0)
-		usleep(100);
+	if (philo->id % 2 == 1)
+		usleep(500);
 	while (!data->stop)
 	{
 		if (eating_action(data, philo))
@@ -117,6 +117,8 @@ void	*make_routine(void *arg)
 		{
 			printf("%lld %i is sleeping\n", time_in_ms() - data->start_time, philo->id);
 			usleep(data->time_to_sleep * 1000);
+			printf("%lld %i is thinking\n", time_in_ms() - data->start_time, philo->id);
+			usleep(500);
 		}
 	}
 	return (NULL);

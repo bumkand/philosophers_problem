@@ -3,21 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jakand <jakand@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jaandras <jaandras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/26 18:56:56 by jakand            #+#    #+#             */
-/*   Updated: 2025/09/01 16:26:53 by jakand           ###   ########.fr       */
+/*   Updated: 2025/09/03 19:49:40 by jaandras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PHILO_H
 # define PHILO_H
 
-#include <stdio.h>
-#include <unistd.h>
-#include <stdlib.h>
-#include <sys/time.h>
-#include <pthread.h>
+# include <pthread.h>
+# include <stdio.h>
+# include <stdlib.h>
+# include <sys/time.h>
+# include <unistd.h>
 
 typedef struct s_philo
 {
@@ -28,7 +28,7 @@ typedef struct s_philo
 	long long		last_meal_time;
 	pthread_t		thread;
 	struct s_data	*data;
-}	t_philo;
+}					t_philo;
 
 typedef struct s_data
 {
@@ -43,14 +43,14 @@ typedef struct s_data
 	pthread_mutex_t	*forks;
 	t_philo			*philos;
 	pthread_t		monitor;
-}	t_data;
+}					t_data;
 
-int	init_data(t_data *data, int arc, char *arv[]);
+int					init_data(t_data *data, int arc, char *arv[]);
 
-int	philo_threads(t_data *data);
+int					philo_threads(t_data *data);
 
-long long	time_in_ms(void);
+long long			time_in_ms(void);
 
-int	ft_atoi(const char *nptr);
+int					ft_atoi(const char *nptr);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: jaandras <jaandras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/28 17:09:14 by jakand            #+#    #+#             */
-/*   Updated: 2025/09/03 18:01:18 by jaandras         ###   ########.fr       */
+/*   Updated: 2025/09/03 19:54:09 by jaandras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,24 +15,24 @@
 void	*monitor_actions(void *arg)
 {
 	t_philo	*philo;
-	int	i;
+	int		i;
 
-	philo = (t_philo *) arg;
+	philo = (t_philo *)arg;
 	while (!philo->data->stop)
 	{
-	    i = 0;
-	    while (i < philo->data->philo_num)
-	    {
-	        if (time_in_ms() - philo[i].last_meal_time > philo->data->time_to_die)
-	        {
-	            printf("%lld %d died\n\n\n\n",
-	                time_in_ms() - philo->data->start_time, philo[i].id);
-	            philo->data->stop = 1;
-	            return (NULL);
-	        }
-	        i++;
-	    }
-	    usleep(500);
+		i = 0;
+		while (i < philo->data->philo_num)
+		{
+			if (time_in_ms() - philo[i].last_meal_time > philo->data->time_to_die)
+			{
+				printf("%lld %d died\n\n\n\n", time_in_ms()
+					- philo->data->start_time, philo[i].id);
+				philo->data->stop = 1;
+				return (NULL);
+			}
+			i++;
+		}
+		usleep(500);
 	}
 	return (NULL);
 }
@@ -51,10 +51,8 @@ int	eating_action(t_data *data, t_philo *philo)
 		philo->last_meal_time = time_in_ms();
 		printf("%lld %i has taken a fork\n", time_in_ms() - data->start_time, philo->id);
 		printf("%lld %i is eating\n", time_in_ms() - data->start_time, philo->id);
-		
 		philo->meals_ate++;
 		printf("Philosopher %i eats %i meals\n", philo->id, philo->meals_ate);
-		
 		if (philo->meals_ate == data->num_of_eats)
 		{
 			data->everyone_ate++;
@@ -74,10 +72,8 @@ int	eating_action(t_data *data, t_philo *philo)
 		philo->last_meal_time = time_in_ms();
 		printf("%lld %i has taken a fork\n", time_in_ms() - data->start_time, philo->id);
 		printf("%lld %i is eating\n", time_in_ms() - data->start_time, philo->id);
-		
 		philo->meals_ate++;
 		printf("Philosopher %i eats %i meals\n", philo->id, philo->meals_ate);
-		
 		if (philo->meals_ate == data->num_of_eats)
 		{
 			data->everyone_ate++;
@@ -90,10 +86,9 @@ int	eating_action(t_data *data, t_philo *philo)
 			}
 		}
 	}
-		usleep(data->time_to_eat * 1000);
-		pthread_mutex_unlock(&data->forks[philo->left_fork]);
-		pthread_mutex_unlock(&data->forks[philo->right_fork]);
-	
+	usleep(data->time_to_eat * 1000);
+	pthread_mutex_unlock(&data->forks[philo->left_fork]);
+	pthread_mutex_unlock(&data->forks[philo->right_fork]);
 	return (0);
 }
 
@@ -102,9 +97,8 @@ void	*make_routine(void *arg)
 	t_philo	*philo;
 	t_data	*data;
 
-	philo = (t_philo *) arg;
+	philo = (t_philo *)arg;
 	data = philo->data;
-
 	if (philo->id % 2 == 1)
 		usleep(500);
 	while (!data->stop)
@@ -129,26 +123,21 @@ int	philo_threads(t_data *data)
 	int	i;
 
 	i = 0;
+	data->start_time = time_in_ms();
 	while (i < data->philo_num)
 	{
 		pthread_mutex_init(&data->forks[i], NULL);
 		pthread_create(&data->philos[i].thread, NULL, make_routine, &data->philos[i]);
 		i++;
 	}
-	data->start_time = time_in_ms();
 	pthread_create(&data->monitor, NULL, monitor_actions, data->philos);
-	i = 0;
-	while (i < data->philo_num)
-	{
+	i = -1;
+	while (++i < data->philo_num)
 		pthread_join(data->philos[i].thread, NULL);
-		i++;
-	}
+
 	pthread_join(data->monitor, NULL);
-	i = 0;
-	while (i < data->philo_num)
-	{
+	i = -1;
+	while (++i < data->philo_num)
 		pthread_mutex_destroy(&data->forks[i]);
-		i++;
-	}
 	return (0);
 }

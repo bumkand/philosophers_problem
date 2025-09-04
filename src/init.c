@@ -6,7 +6,7 @@
 /*   By: jaandras <jaandras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/27 21:40:57 by jakand            #+#    #+#             */
-/*   Updated: 2025/09/04 20:53:55 by jaandras         ###   ########.fr       */
+/*   Updated: 2025/09/04 21:12:19 by jaandras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int	data_struct(t_data *data, char *arv[])
 	if (arv[5])
 		data->num_of_eats = ft_atoi(arv[5]);
 	else
-		data->num_of_eats = -1;
+		data->num_of_eats = 0;
 	data->everyone_ate = 0;
 	data->stop = 0;
 	data->start_time = time_in_ms();
@@ -67,7 +67,7 @@ int	init_data(t_data *data, int arc, char *arv[])
 		return (1);
 	}
 	if (data->philo_num < 1 || data->time_to_die < 1 || data->time_to_eat < 1
-		|| data->time_to_sleep < 1)
+		|| data->time_to_sleep < 1 || data->num_of_eats < 1)
 	{
 		printf("Wrong num of philos or amount of time\n");
 		return (1);

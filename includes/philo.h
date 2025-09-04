@@ -6,7 +6,7 @@
 /*   By: jaandras <jaandras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/26 18:56:56 by jakand            #+#    #+#             */
-/*   Updated: 2025/09/04 16:33:36 by jaandras         ###   ########.fr       */
+/*   Updated: 2025/09/04 20:56:39 by jaandras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,20 @@ int					init_data(t_data *data, int arc, char *arv[]);
 
 int					philo_threads(t_data *data);
 
+int					eating_action(t_data *data, t_philo *philo);
+
+int					odd_philosophers(t_data *data, t_philo *philo);
+
+int					even_philosophers(t_data *data, t_philo *philo);
+
+int					sleep_and_think(t_data *data, t_philo *philo);
+
+void				*monitor_actions(void *arg);
+
 long long			time_in_ms(void);
 
-int					ft_atoi(const char *nptr);
+long long			ft_atoi(const char *nptr);
+
+void				free_data(t_data *data);
 
 #endif

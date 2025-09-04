@@ -3,20 +3,28 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jakand <jakand@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jaandras <jaandras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/27 22:21:22 by jakand            #+#    #+#             */
-/*   Updated: 2025/08/27 22:22:05 by jakand           ###   ########.fr       */
+/*   Updated: 2025/09/04 20:56:30 by jaandras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
 
-int	ft_atoi(const char *nptr)
+void	free_data(t_data *data)
 {
-	int				i;
-	long int		store;
-	int				sign;
+	if (data->forks)
+		free(data->forks);
+	if (data->philos)
+		free(data->philos);
+}
+
+long long	ft_atoi(const char *nptr)
+{
+	long long	i;
+	long long	store;
+	long long	sign;
 
 	i = 0;
 	store = 0;

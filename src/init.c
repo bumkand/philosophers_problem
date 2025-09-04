@@ -6,7 +6,7 @@
 /*   By: jaandras <jaandras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/27 21:40:57 by jakand            #+#    #+#             */
-/*   Updated: 2025/09/04 16:25:26 by jaandras         ###   ########.fr       */
+/*   Updated: 2025/09/04 20:53:55 by jaandras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,15 +60,14 @@ int	philo_struct(t_data *data)
 
 int	init_data(t_data *data, int arc, char *arv[])
 {
-	(void) arc;
-
+	(void)arc;
 	if (data_struct(data, arv))
 	{
 		printf("Initialization in data struct went wrong\n");
 		return (1);
 	}
-	if (data->philo_num < 1 || data->time_to_die < 1
-		|| data->time_to_eat < 1 || data->time_to_sleep < 1)
+	if (data->philo_num < 1 || data->time_to_die < 1 || data->time_to_eat < 1
+		|| data->time_to_sleep < 1)
 	{
 		printf("Wrong num of philos or amount of time\n");
 		return (1);

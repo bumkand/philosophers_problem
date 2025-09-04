@@ -6,7 +6,7 @@
 /*   By: jaandras <jaandras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/26 18:56:56 by jakand            #+#    #+#             */
-/*   Updated: 2025/09/03 19:49:40 by jaandras         ###   ########.fr       */
+/*   Updated: 2025/09/04 16:33:36 by jaandras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ typedef struct s_data
 	pthread_mutex_t	*forks;
 	t_philo			*philos;
 	pthread_t		monitor;
+	pthread_mutex_t	print;
 }					t_data;
 
 int					init_data(t_data *data, int arc, char *arv[]);

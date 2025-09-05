@@ -6,13 +6,13 @@
 #    By: jaandras <jaandras@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/08/26 18:59:00 by jakand            #+#    #+#              #
-#    Updated: 2025/09/04 20:28:13 by jaandras         ###   ########.fr        #
+#    Updated: 2025/09/05 22:09:00 by jaandras         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = philo
 CC = cc
-CFLAGS = -Wall -Werror -Wextra -g
+CFLAGS = -Wall -Werror -Wextra -g -pthread
 SRC_DIR = src
 SRCS = $(addprefix $(SRC_DIR)/, main.c init.c utils.c thread.c routine.c monitor.c )
 OBJS = $(SRCS:.c=.o)

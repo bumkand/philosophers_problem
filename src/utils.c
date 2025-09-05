@@ -6,7 +6,7 @@
 /*   By: jaandras <jaandras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/27 22:21:22 by jakand            #+#    #+#             */
-/*   Updated: 2025/09/04 20:56:30 by jaandras         ###   ########.fr       */
+/*   Updated: 2025/09/05 16:29:12 by jaandras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,19 @@ void	free_data(t_data *data)
 		free(data->philos);
 }
 
-long long	ft_atoi(const char *nptr)
+long long	time_in_ms(void)
 {
-	long long	i;
-	long long	store;
-	long long	sign;
+	struct timeval	tv;
+
+	gettimeofday(&tv, NULL);
+	return ((tv.tv_sec * 1000) + (tv.tv_usec / 1000));
+}
+
+long	ft_atoi(const char *nptr)
+{
+	long	i;
+	long	store;
+	long	sign;
 
 	i = 0;
 	store = 0;

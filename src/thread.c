@@ -6,7 +6,7 @@
 /*   By: jaandras <jaandras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/28 17:09:14 by jakand            #+#    #+#             */
-/*   Updated: 2025/09/04 20:28:41 by jaandras         ###   ########.fr       */
+/*   Updated: 2025/09/05 22:12:42 by jaandras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,18 +21,20 @@ void	*make_routine(void *arg)
 	data = philo->data;
 	if (philo->id % 2 == 1)
 		usleep(500);
-	while (!data->stop)
+	while (1)
 	{
-		if (eating_action(data, philo))
+		pthread_mutex_lock(&data->meal);
+		if (data->stop)
 		{
-			pthread_mutex_unlock(&data->forks[philo->left_fork]);
-			if (data->philo_num != 1)
-				pthread_mutex_unlock(&data->forks[philo->right_fork]);
-			return (NULL);
+			pthread_mutex_unlock(&data->meal);
+			break ;
 		}
+		pthread_mutex_unlock(&data->meal);
+		if (eating_action(data, philo))
+			break ;
 		usleep(500);
 		if (sleep_and_think(data, philo))
-			return (NULL);
+			break ;
 	}
 	return (NULL);
 }
@@ -43,12 +45,10 @@ int	philo_threads(t_data *data)
 
 	i = 0;
 	data->start_time = time_in_ms();
-	pthread_mutex_init(&data->print, NULL);
 	while (i < data->philo_num)
 	{
-		pthread_mutex_init(&data->forks[i], NULL);
-		pthread_create(&data->philos[i].thread, NULL,
-			make_routine, &data->philos[i]);
+		pthread_create(&data->philos[i].thread, NULL, make_routine,
+			&data->philos[i]);
 		i++;
 	}
 	pthread_create(&data->monitor, NULL, monitor_actions, data->philos);
@@ -57,8 +57,9 @@ int	philo_threads(t_data *data)
 		pthread_join(data->philos[i].thread, NULL);
 	pthread_join(data->monitor, NULL);
 	i = -1;
-	pthread_mutex_destroy(&data->print);
 	while (++i < data->philo_num)
 		pthread_mutex_destroy(&data->forks[i]);
+	pthread_mutex_destroy(&data->print);
+	pthread_mutex_destroy(&data->meal);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: jaandras <jaandras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/26 18:56:56 by jakand            #+#    #+#             */
-/*   Updated: 2025/09/05 23:02:33 by jaandras         ###   ########.fr       */
+/*   Updated: 2025/09/06 16:50:28 by jaandras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,5 @@ long long			time_in_ms(void);
 long				ft_atoi(const char *nptr);
 
 void				free_data(t_data *data);
-
-// setarch `uname -m ` -R ==> Use it before start ==> -fsanitize=thread
 
 #endif

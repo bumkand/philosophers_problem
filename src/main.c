@@ -6,19 +6,16 @@
 /*   By: jaandras <jaandras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/27 18:30:34 by jakand            #+#    #+#             */
-/*   Updated: 2025/09/05 17:44:25 by jaandras         ###   ########.fr       */
+/*   Updated: 2025/09/06 17:24:21 by jaandras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
 
-int	check_arv(char *arv[])
+int	check_num(char *arv[])
 {
-	int		i;
-	int		j;
 	long	k;
 
-	i = 1;
 	if (arv[5])
 	{
 		k = ft_atoi(arv[5]);
@@ -27,6 +24,17 @@ int	check_arv(char *arv[])
 	}
 	k = ft_atoi(arv[1]);
 	if (k < 1)
+		return (1);
+	return (0);
+}
+
+int	check_arv(char *arv[])
+{
+	int	i;
+	int	j;
+
+	i = 1;
+	if (check_num(arv))
 		return (1);
 	while (arv[i])
 	{

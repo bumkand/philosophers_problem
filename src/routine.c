@@ -6,7 +6,7 @@
 /*   By: jaandras <jaandras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/04 20:13:20 by jaandras          #+#    #+#             */
-/*   Updated: 2025/09/05 22:12:46 by jaandras         ###   ########.fr       */
+/*   Updated: 2025/09/06 17:12:32 by jaandras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,24 @@ int	odd_philosophers(t_data *data, t_philo *philo)
 	return (0);
 }
 
+int	more_philos(t_data *data, t_philo *philo)
+{
+	if (philo->id % 2 == 0)
+	{
+		if (even_philosophers(data, philo))
+			return (1);
+	}
+	else
+	{
+		if (odd_philosophers(data, philo))
+			return (1);
+	}
+	usleep(data->time_to_eat * 1000);
+	pthread_mutex_unlock(&data->forks[philo->left_fork]);
+	pthread_mutex_unlock(&data->forks[philo->right_fork]);
+	return (0);
+}
+
 int	eating_action(t_data *data, t_philo *philo)
 {
 	if (data->philo_num == 1)
@@ -98,18 +116,7 @@ int	eating_action(t_data *data, t_philo *philo)
 		pthread_mutex_unlock(&data->forks[philo->left_fork]);
 		return (1);
 	}
-	if (philo->id % 2 == 0)
-	{
-		if (even_philosophers(data, philo))
-			return (1);
-	}
-	else
-	{
-		if (odd_philosophers(data, philo))
-			return (1);
-	}
-	usleep(data->time_to_eat * 1000);
-	pthread_mutex_unlock(&data->forks[philo->left_fork]);
-	pthread_mutex_unlock(&data->forks[philo->right_fork]);
+	if (more_philos(data, philo))
+		return (1);
 	return (0);
 }

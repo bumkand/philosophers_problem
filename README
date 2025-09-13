@@ -1,1 +1,32 @@
-this is not finished
+🧠 **Philosophers** – A C project simulating the Dining Philosophers problem using threads and mutexes. Philosophers alternately think, eat, and sleep, sharing forks. The simulation ends when all philosophers have eaten a specified number of times or when one dies due to starvation.
+
+## Requirements
+
+- Proper memory management (no leaks or crashes)
+- **Makefile** with `-Wall -Wextra -Werror` flags
+- No global variables
+- Use of `mutexes`, `pthread` functions and `usleep`
+- No deadlocks or data races
+
+## Arguments
+
+1. `number_of_philosophers`: Number of philosophers (and forks)
+2. `time_to_die`: Time in milliseconds before a philosopher dies if they don't eat
+3. `time_to_eat`: Time in milliseconds a philosopher takes to eat
+4. `time_to_sleep`: Time in milliseconds a philosopher spends sleeping
+5. `number_of_times_each_philosopher_must_eat` (optional): If provided, the simulation ends when every philosopher has eaten this number of times; otherwise, it ends when any philosopher dies
+
+## Rules
+
+- Each philosopher is a thread
+- One fork between each philosopher
+- Protect fork states with mutexes
+- Output actions with timestamps
+- No more than 10 ms between a philosopher's death and the printed message
+
+
+## Build & Run
+
+```bash
+make
+./philo number_of_philosophers time_to_die time_to_eat time_to_sleep [number_of_times_each_philosopher_must_eat]
